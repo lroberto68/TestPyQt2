@@ -5,6 +5,8 @@ from main_window3 import MainWindow3
 from main_window4 import MainWindow4
 from main_window5 import MainWindow5
 from main_window6 import MainWindow6
+from main_window7 import MainWindow7
+
 
 def main():
     print('Hello World')
@@ -49,10 +51,19 @@ def main6():
 
     app.exec_()
 
+
+def main7():
+    app = QApplication([])
+    window = MainWindow7()
+    window.show()
+    app.exec_()
+
+
 if __name__=='__main__':
     #main()
     #main2()
     #main3()
     #main4()
     #main5()
-    main6()
+    #main6()
+    main7()

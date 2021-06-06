@@ -53,8 +53,10 @@ class MainWindow6(QMainWindow):
             self.label1.setText("Azione")
             self.secondForm.show()
             print('aspetta un attimo')
+            self.setWindowTitle("Ho aperto seconda form")
         else:
             self.secondForm.close()
+            self.setWindowTitle("Ho chiuso la seconda form")
 
     def button_action2_click(self):
 
