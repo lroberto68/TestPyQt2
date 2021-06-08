@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>img/application-wave.png</file>
+  </qresource>
+</RCC>
