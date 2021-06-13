@@ -13,16 +13,24 @@ class CodFiscale:
         self.__nazioneNascita = nazioneNascita
         self.__luogoNascita = luogoNascita
 
+    def __eliminaCarat(self, cogNom):
+        """Metodo private per eliminare caratteri non alfabetici da Cognome e Nome"""
+        import re
+
+        reg = re.compile('[^a-zA-Z]')
+        return reg.sub('', cogNom)
+
     def __dividiConsVoc(self, cogNom):
         """Metodo private per separare consonanti e vocali in Cognoeme / Nome"""
 
         VOCALI = 'AEIOU'
         parteV = ''
         parteC = ''
-        cogNom = cogNom.replace(" ", "")
-        cogNom = cogNom.replace("'", "")
+        #cogNom = cogNom.replace(" ", "")
+        #cogNom = cogNom.replace("'", "")
+        cogNomPul = self.__eliminaCarat(cogNom)
 
-        for c in cogNom:
+        for c in cogNomPul:
             if c not in VOCALI:
                 parteC += c
             else:
