@@ -12,6 +12,8 @@ class MainWindow7(QMainWindow, Ui_MainWindow):
 
         self.label.setText('Ciao')
 
+        self.rdbMas.setChecked(True)
+
         self.pushButton.setText('Premimi')
         self.pushButton.clicked.connect(self.pushButton_clicked)
 
@@ -20,5 +22,11 @@ class MainWindow7(QMainWindow, Ui_MainWindow):
     def pushButton_clicked(self):
         self.label.setText('Mi hai premuto !')
         dt = self.dataNas.date()
+
+        if self.rdbMas.isChecked():
+            self.lnSesso.setText('M')
+        else:
+            self.lnSesso.setText('F')
+
         cf = CodFiscale(self.lnCogn.text(), self.lnNome.text(), self.lnSesso.text(), dt.toPyDate(), self.lnLuogo.text())
         self.setWindowTitle(cf.stampaCF())

@@ -1,8 +1,29 @@
 from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QMainWindow, QLabel, QToolBar, QAction, QStatusBar
+from PyQt5.QtWidgets import QMainWindow, QLabel, QToolBar, QAction, QStatusBar, QPushButton, QDialog, \
+    QDialogButtonBox, QVBoxLayout
 
 from main_window4 import MainWindow4
+
+
+class CustomerDialog(QDialog):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.setWindowTitle("HELLO")
+
+        self.message = QLabel("Something happend, is that OK ?", self)
+
+        btn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
+        self.button_box = QDialogButtonBox(btn)
+        self.button_box.accepted.connect(self.accept)
+        self.button_box.rejected.connect(self.reject)
+
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.message)
+        self.layout.addWidget(self.button_box)
+        self.setLayout(self.layout)
 
 
 class MainWindow6(QMainWindow):
@@ -16,6 +37,10 @@ class MainWindow6(QMainWindow):
         self.label1 = QLabel("Nome", self)
         self.label1.move(100, 200)
 
+        self.button1 = QPushButton("Press me", self)
+        self.button1.move(200, 200)
+        self.button1.clicked.connect(self.button1_clicked)
+
         self.toolbar1 = QToolBar("Toolbar1", self)
         self.setIconSize(QSize(16, 16))
         self.addToolBar(self.toolbar1)
@@ -28,6 +53,7 @@ class MainWindow6(QMainWindow):
         self.button_action.setToolTip("Azione")
         self.button_action.setStatusTip("Tasto di azione")
         self.button_action.setCheckable(True)
+        self.button_action.setShortcut("Ctrl+n")
         self.button_action.triggered.connect(self.button_action_click)
         self.button_action.toggled.connect(self.button_action_click)
         self.toolbar1.addAction(self.button_action)
@@ -44,13 +70,22 @@ class MainWindow6(QMainWindow):
 
         self.setStatusBar(QStatusBar(self))
 
-        self.secondForm = MainWindow4()
+        self.menu = self.menuBar()
+        self.file_menu = self.menu.addMenu("&File")
+        self.file_menu.addAction(self.button_action)
+        self.file_menu.addSeparator()
+        self.file_menu.addAction(self.button_action2)
+        self.sub_menu = self.file_menu.addMenu("Sub")
+        self.sub_menu.addAction(self.button_action2)
+
+        self.secondForm = MainWindow4(self)
 
     def button_action_click(self, s):
 
         print("Azione", s)
         if s:
             self.label1.setText("Azione")
+            self.secondForm.move(600, 300)
             self.secondForm.show()
             print('aspetta un attimo')
             self.setWindowTitle("Ho aperto seconda form")
@@ -62,3 +97,18 @@ class MainWindow6(QMainWindow):
 
         self.close()
         self.secondForm.close()
+
+    def button1_clicked(self, s):
+        print("clicked", s)
+        # dlg = QDialog(self)
+        # dlg.setWindowTitle("HELLO")
+        # dlg.move(50, 50)
+        # dlg.exec_()
+        dlg = CustomerDialog(self)
+        if dlg.exec_():
+            print("OK")
+            self.label1.setText("Accepted")
+            self.close()
+        else:
+            print("KO")
+            self.label1.setText("Not Accepted")

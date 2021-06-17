@@ -5,11 +5,11 @@ class MainWindow4(QMainWindow):
 
     lista = ['Vittoria', 'Roberta', 'Federica', 'Alessia', 'Carla', 'Ylenia', 'Lorenzo']
 
-    def __init__(self):
-        super(MainWindow4, self).__init__()
+    def __init__(self, parent=None):
+        super(MainWindow4, self).__init__(parent)
 
         self.setWindowTitle("Main Window4")
-        self.setGeometry(0, 0, 600, 300)
+        self.setGeometry(150, 150, 600, 300)
 
         self.label = QLabel('Nome', self)
         self.label.move(50, 50)
